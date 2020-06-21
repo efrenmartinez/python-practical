@@ -5,6 +5,7 @@ clients = 'Hola,mundo,'
 
 
 def create_client(client_name):
+	"""Create new client."""
 	global clients
 	
 	if name_client not in clients:
@@ -15,11 +16,13 @@ def create_client(client_name):
 
 
 def _add_comma(): #función privada
+	"""Add a comma at the end"""
 	global clients
 	clients += ','
 
 
 def list_client():
+	"""List client."""
 	global clients
 	print(clients)
 
