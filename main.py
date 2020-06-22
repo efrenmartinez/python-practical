@@ -1,7 +1,8 @@
 # -*-  coding: utf8 -*-
 
+import sys
 
-clients = 'Efren,Hector,'
+clients = ['Juan']
 
 
 def create_client(client_name):
@@ -9,8 +10,7 @@ def create_client(client_name):
 	global clients
 	
 	if name_client not in clients:
-		clients += client_name
-		_add_comma()
+		clients.append(client_name)
 	else:
 		print('The name already is in client´s list.')
 
@@ -35,6 +35,18 @@ def delete_client(client_name):
 		print('Client not found.')
 
 
+def search_client(client_name):
+	"""Search client"""
+	global clients
+
+	client_list = clients.split(',')
+	for client in client_list:
+		if client != client_name:
+			continue
+		else:
+			return True
+
+
 def _add_comma(): #función privada
 	"""Add a comma at the end"""
 	global clients
@@ -55,10 +67,24 @@ def _print_welcome():
 	print('[R]ead client')
 	print('[U]pdate client')
 	print('[D]elete client')
+	print('[S]earch client')
+	print('[E]xit')
 
 
 def _get_client_name():
-	return input('What´s is name client? ').capitalize()
+	client_name = None
+
+	while not client_name:
+		client_name = input('What´s is name client? ').capitalize()
+
+		if client_name == 'exit':
+			client_name = None
+			break
+	
+	if not client_name:
+		sys.exit()
+
+	return client_name
 
 
 if __name__ == '__main__':
@@ -70,7 +96,7 @@ if __name__ == '__main__':
 		name_client = _get_client_name()
 		create_client(name_client)
 		list_client()
-	
+		
 	elif command == 'R':
 		list_client()
 
@@ -89,5 +115,15 @@ if __name__ == '__main__':
 		else:
 			pass
 
+	elif command == 'S':
+		name_client = _get_client_name()
+		found = search_client(name_client)
+
+		if found:
+			print('The client is in the client´s list.')
+		else:
+			print('The client: {} is not client´s list'.format(name_client))
+
 	else:
 		print('Invalid command')
+    
